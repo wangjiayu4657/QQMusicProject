@@ -1,0 +1,19 @@
+//
+//  PrefixHeader.pch
+//  QQMusic
+//
+//  Created by fangjs on 16/9/7.
+//  Copyright © 2016年 fangjs. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#define MAS_SHORTHAND
+#define MAS_SHORTHAND_GLOBALS
+#import "Masonry.h"
+#import <MJExtension.h>
+#import "XMGAudioTool.h"
+#import "XWMusicTool.h"
+
+#endif /* PrefixHeader_pch */
