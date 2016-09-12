@@ -70,17 +70,18 @@
     
     //添加毛玻璃效果
     [self setupBlur];
+    
     //添加背景图片
     [self.progressSlider setThumbImage:[UIImage imageNamed:@"player_slider_playback_thumb"] forState:UIControlStateNormal];
     
+    //设置主界面上的歌词显示
     self.lrcView.lrcLabel = self.lrcLabel;
+    
     //开始播放音乐
     [self startPlayMusic];
     
     // 设置歌词 view 的 contentSize
     self.lrcView.contentSize = CGSizeMake(self.view.bounds.size.width * 2, 0);
-    
-
 }
 
 //iconView 的动画
@@ -98,8 +99,8 @@
     UIToolbar *toolBar = [[UIToolbar alloc] init];
     [self.backgroundView addSubview:toolBar];
     toolBar.barStyle = UIBarStyleBlack;
+    
     //添加约束
-    toolBar.translatesAutoresizingMaskIntoConstraints = NO;
     [toolBar makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.backgroundView);
     }];
@@ -155,9 +156,7 @@
     NSInteger minute = time / 60;
     //round():四舍五入
     NSInteger second = (int) round(time) % 60;
-    
     return [NSString stringWithFormat:@"%02ld:%02ld",minute,second];
-    
 }
 
 //添加定时器
@@ -191,6 +190,7 @@
     self.progressSlider.value = self.currentPlayer.currentTime / self.currentPlayer.duration;
 }
 
+//更新歌词
 - (void) updateLrcLine {
     self.lrcView.currentTime = self.currentPlayer.currentTime;
 }
