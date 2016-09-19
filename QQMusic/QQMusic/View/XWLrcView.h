@@ -19,4 +19,7 @@
 /** 当前播放器播放的时间*/
 @property (assign , nonatomic)  NSTimeInterval currentTime;
 
+/** 当前播放器的总时长*/
+@property (assign , nonatomic)  NSTimeInterval duration;
+
 @end

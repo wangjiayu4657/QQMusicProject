@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Playing View Controller-->
@@ -15,17 +16,13 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lkq.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="bNM-2S-9Yy">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lkq.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="bNM-2S-9Yy"/>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dbo-et-oxE">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wuc-Hg-hUe">
-                                        <rect key="frame" x="20" y="30" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="Aeh-Ga-uG2"/>
                                             <constraint firstAttribute="height" constant="40" id="sZc-Gn-qpT"/>
@@ -33,7 +30,6 @@
                                         <state key="normal" image="miniplayer_btn_playlist_close_b"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZH-ur-4k3">
-                                        <rect key="frame" x="540" y="30" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="5ic-MD-Nn1"/>
                                             <constraint firstAttribute="height" constant="40" id="fzJ-V6-ST6"/>
@@ -41,22 +37,20 @@
                                         <state key="normal" image="main_tab_more"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="月半小夜曲" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUx-ev-2BD">
-                                        <rect key="frame" x="258" y="30" width="85" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="ifi-SA-nP7"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李克勤" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEn-Lt-ORG">
-                                        <rect key="frame" x="279" y="71" width="42" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="wuc-Hg-hUe" firstAttribute="top" secondItem="dbo-et-oxE" secondAttribute="top" constant="30" id="B5b-J3-ltS"/>
                                     <constraint firstAttribute="height" constant="100" id="DaG-TK-pT1"/>
@@ -70,31 +64,27 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHO-am-haQ">
-                                <rect key="frame" x="0.0" y="450" width="600" height="150"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="02:30" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Mg-fZ-kM0">
-                                        <rect key="frame" x="0.0" y="15" width="42" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="Sbf-qh-3ak"/>
                                             <constraint firstAttribute="width" constant="42" id="iG8-hA-0ZB"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" red="0.88029778141061943" green="0.90316538547237069" blue="0.84346141610663528" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.88029778141061943" green="0.90316538547237069" blue="0.84346141610663528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="04:25" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WoD-ND-YNa">
-                                        <rect key="frame" x="558" y="15" width="42" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="2RS-s5-hx9"/>
                                             <constraint firstAttribute="width" constant="42" id="eKG-f1-wqc"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" red="0.88029778140000003" green="0.90316538550000003" blue="0.84346141610000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.88029778140000003" green="0.90316538550000003" blue="0.84346141610000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="cke-pL-WEc">
-                                        <rect key="frame" x="40" y="11" width="520" height="31"/>
-                                        <color key="minimumTrackTintColor" red="0.14901960784313725" green="0.73333333333333328" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="minimumTrackTintColor" red="0.14901960784313725" green="0.73333333333333328" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="end" destination="BYZ-38-t0r" eventType="touchUpInside" id="9tA-fM-bw1"/>
                                             <action selector="progressValueChange" destination="BYZ-38-t0r" eventType="valueChanged" id="5IP-Eh-xjI"/>
@@ -103,7 +93,6 @@
                                         </connections>
                                     </slider>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mme-h2-9EO" userLabel="开始播放和停止">
-                                        <rect key="frame" x="268" y="56" width="64" height="64"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="64" id="GQn-TU-SZP"/>
                                             <constraint firstAttribute="height" constant="64" id="yMk-Uh-NVb"/>
@@ -115,7 +104,6 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v76-Tx-78u" userLabel="下一首">
-                                        <rect key="frame" x="362" y="56" width="64" height="64"/>
                                         <state key="normal" image="player_btn_next_normal"/>
                                         <state key="selected" image="player_btn_pause_normal"/>
                                         <state key="highlighted" image="player_btn_next_highlight"/>
@@ -124,7 +112,6 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uj0-1M-xvM" userLabel="上一首">
-                                        <rect key="frame" x="174" y="56" width="64" height="64"/>
                                         <state key="normal" image="player_btn_pre_normal"/>
                                         <state key="selected" image="player_btn_pause_normal"/>
                                         <state key="highlighted" image="player_btn_pre_highlight"/>
@@ -133,7 +120,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Mme-h2-9EO" firstAttribute="width" secondItem="Uj0-1M-xvM" secondAttribute="width" id="735-yn-4RJ"/>
                                     <constraint firstAttribute="trailing" secondItem="WoD-ND-YNa" secondAttribute="trailing" id="DYh-Ql-ASx"/>
@@ -156,7 +143,6 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lkq.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="bNU-Xl-Cnh">
-                                <rect key="frame" x="179" y="130" width="242" height="242"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="242" id="Aat-Jr-lsw"/>
                                     <constraint firstAttribute="width" secondItem="bNU-Xl-Cnh" secondAttribute="height" multiplier="1:1" id="hcR-LT-9G6"/>
@@ -170,23 +156,21 @@
                                 </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="歌词Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zw-mC-2Cg" customClass="XWLrcLabel">
-                                <rect key="frame" x="262" y="402" width="76" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="H6R-YB-ac6"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sev-Vx-Uf8" customClass="XWLrcView">
-                                <rect key="frame" x="0.0" y="100" width="600" height="350"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="CMJ-Of-eow"/>
                                 </connections>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Sev-Vx-Uf8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="4Ph-Um-dzw"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="aHO-am-haQ" secondAttribute="bottom" id="C70-9i-riJ"/>

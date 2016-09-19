@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+static NSString * const iconViewAnimationNotification = @"iconViewAnimationNotification";
+
+static NSString * const boolKey = @"boolKey";
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

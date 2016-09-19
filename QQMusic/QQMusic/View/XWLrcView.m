@@ -11,7 +11,9 @@
 #import "XWLrcTool.h"
 #import "XWLrcLine.h"
 #import "XWLrcLabel.h"
-
+#import "XWMusic.h"
+#import "XWMusicTool.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface XWLrcView()<UITableViewDataSource>
 
@@ -48,7 +50,6 @@
     [self addSubview:tableView];
     
     self.tableView = tableView;
-
 }
 //添加约束
 - (void)layoutSubviews {
@@ -149,6 +150,9 @@
             
             //设置主界面上的歌词文字
             self.lrcLabel.text = currentLrcLine.text;
+            
+            //设置锁屏
+            [self genaratorLockImage];
 
         }
         if (self.currentIndex == i) {
@@ -165,4 +169,119 @@
         }
     }
 }
+
+#pragma mark - 生成锁屏图片
+- (void) genaratorLockImage {
+    //获取当前音乐的图片
+    XWMusic *playingMusic = [XWMusicTool playingMusic];
+    UIImage *currentImage = [UIImage imageNamed:playingMusic.icon];
+    
+    //取出歌词
+    //取出当前歌词
+    XWLrcLine *currentLrcLine = self.lrcList[self.currentIndex];
+    
+    //取出上一句歌词
+    NSInteger  previousIndex = self.currentIndex - 1;
+    XWLrcLine *previousLrcLine = nil;
+    if (previousIndex >= 0) {
+        previousLrcLine = self.lrcList[previousIndex];
+    }
+    
+    //取出下一句歌词
+    NSInteger nextIndex = self.currentIndex + 1;
+    XWLrcLine *nextLrcLine = nil;
+    if (nextIndex < self.lrcList.count) {
+        nextLrcLine = self.lrcList[nextIndex];
+    }
+    
+    //生成水印图片
+    //获取上下文
+    UIGraphicsBeginImageContext(currentImage.size);
+    
+    //将图片画上去
+    [currentImage drawInRect:CGRectMake(0, 0, currentImage.size.width, currentImage.size.height)];
+    
+    //将文字画上去
+    //歌词显示的高度
+    CGFloat lrcTextHeight = 25;
+    //设置居中属性
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    
+    //上一句歌词
+    [previousLrcLine.text drawInRect:CGRectMake(0, currentImage.size.height - lrcTextHeight * 3, currentImage.size.width, lrcTextHeight) withAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor lightGrayColor],NSParagraphStyleAttributeName:paragraphStyle}];
+    //当前正在播放的歌词
+    [currentLrcLine.text drawInRect:CGRectMake(0, currentImage.size.height - lrcTextHeight * 2, currentImage.size.width, lrcTextHeight) withAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[UIColor whiteColor],NSParagraphStyleAttributeName:paragraphStyle}];
+    //下一句歌词
+    [nextLrcLine.text drawInRect:CGRectMake(0, currentImage.size.height - lrcTextHeight, currentImage.size.width, lrcTextHeight) withAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor lightGrayColor],NSParagraphStyleAttributeName:paragraphStyle}];
+
+    //获取完成后的图片
+    UIImage *finishedIamge = UIGraphicsGetImageFromCurrentImageContext();
+    //关闭上下文
+    UIGraphicsEndImageContext();
+
+    [self setUpLockScreenWithLockImage:finishedIamge];
+}
+
+
+#pragma mark - 设置锁屏界面
+- (void)setUpLockScreenWithLockImage:(UIImage *) lockImage {
+    
+    //获取当前正在播放的歌曲
+    XWMusic *playingMusic = [XWMusicTool playingMusic];
+    
+    //获取锁屏中心
+    MPNowPlayingInfoCenter *infoCenter = [MPNowPlayingInfoCenter defaultCenter];
+    
+    /*
+     // MPMediaItemPropertyAlbumTitle
+     // MPMediaItemPropertyAlbumTrackCount
+     // MPMediaItemPropertyAlbumTrackNumber
+     // MPMediaItemPropertyArtist
+     // MPMediaItemPropertyArtwork
+     // MPMediaItemPropertyComposer
+     // MPMediaItemPropertyDiscCount
+     // MPMediaItemPropertyDiscNumber
+     // MPMediaItemPropertyGenre
+     // MPMediaItemPropertyPersistentID
+     // MPMediaItemPropertyPlaybackDuration
+     // MPMediaItemPropertyTitle
+     */
+    //设置锁屏参数
+    NSMutableDictionary *playInfoDict = [NSMutableDictionary dictionary];
+    
+    //设置歌曲名称
+    [playInfoDict setObject:playingMusic.name forKey:MPMediaItemPropertyAlbumTitle];
+    
+    //设置歌手名称
+    [playInfoDict setObject:playingMusic.singer forKey:MPMediaItemPropertyArtist];
+    
+    //设置封面图片
+    MPMediaItemArtwork *itemWork = [[MPMediaItemArtwork alloc] initWithImage:lockImage];
+    [playInfoDict setObject:itemWork forKey:MPMediaItemPropertyArtwork];
+    
+    //设置歌曲总时长
+    [playInfoDict setObject:@(self.duration) forKey:MPMediaItemPropertyPlaybackDuration];
+    
+    //设置歌曲当前播放的时间
+    [playInfoDict setObject:@(self.currentTime) forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+    
+    //设置参数
+    infoCenter.nowPlayingInfo = playInfoDict;
+    
+    //开启远程交互
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+}
+
+
+
+
+
+
+
+
+
+
+
+
 @end

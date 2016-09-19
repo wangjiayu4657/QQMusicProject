@@ -12,10 +12,12 @@
 #import "CALayer+PauseAimate.h"
 #import "XWLrcView.h"
 #import "XWLrcLabel.h"
+#import "AppDelegate.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 #define XMGColor(r,g,b,a)[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
-@interface XWPlayingViewController ()<UIScrollViewDelegate>
+@interface XWPlayingViewController ()<UIScrollViewDelegate,AVAudioPlayerDelegate>
 /**背景图片*/
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
 /**歌手图片*/
@@ -45,7 +47,7 @@
 
 /** 播放器 */
 @property (nonatomic, strong) AVAudioPlayer *currentPlayer;
-
+/** 定时器 */
 @property (strong , nonatomic) CADisplayLink *lrcTime;
 
 #pragma mark - slider 的处理
@@ -58,7 +60,6 @@
 - (IBAction)playOrPause;
 - (IBAction)preVious;
 - (IBAction)next;
-
 
 @end
 
@@ -82,7 +83,12 @@
     
     // 设置歌词 view 的 contentSize
     self.lrcView.contentSize = CGSizeMake(self.view.bounds.size.width * 2, 0);
+    
+    //从后台返回前台是通过通知让背景图片继续转动
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(iconViewAnimation) name:iconViewAnimationNotification object:nil];
+    
 }
+
 
 //iconView 的动画
 - (void) iconViewAnimation{
@@ -92,6 +98,40 @@
     rotateAnimation.repeatCount = NSIntegerMax;
     rotateAnimation.duration = 35;
     [self.iconView.layer addAnimation:rotateAnimation forKey:nil];
+}
+
+
+
+- (void) remoteControlReceivedWithEvent:(UIEvent *)event {
+    /*
+     UIEventSubtypeRemoteControlPlay                 = 100,
+     UIEventSubtypeRemoteControlPause                = 101,
+     UIEventSubtypeRemoteControlStop                 = 102,
+     UIEventSubtypeRemoteControlTogglePlayPause      = 103,
+     UIEventSubtypeRemoteControlNextTrack            = 104,
+     UIEventSubtypeRemoteControlPreviousTrack        = 105,
+     UIEventSubtypeRemoteControlBeginSeekingBackward = 106,
+     UIEventSubtypeRemoteControlEndSeekingBackward   = 107,
+     UIEventSubtypeRemoteControlBeginSeekingForward  = 108,
+     UIEventSubtypeRemoteControlEndSeekingForward    = 109,
+     */
+    switch (event.subtype) {
+        case UIEventSubtypeRemoteControlPlay:
+        case UIEventSubtypeRemoteControlPause:
+            [self playOrPause];
+            break;
+            
+        case UIEventSubtypeRemoteControlPreviousTrack:
+            [self preVious];
+            break;
+            
+        case UIEventSubtypeRemoteControlNextTrack:
+            [self next];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - 添加毛玻璃效果
@@ -134,6 +174,7 @@
     
     //播放音乐
     AVAudioPlayer *currentPlayer = [XMGAudioTool playMusicWithFileName:playingMusic.filename];
+    currentPlayer.delegate = self;
     self.currentTimeLabel.text = [self stringWithTime:currentPlayer.currentTime];
     self.totalTimeLabel.text = [self stringWithTime:currentPlayer.duration];
     self.currentPlayer = currentPlayer;
@@ -143,12 +184,13 @@
     
     //设置歌词
     self.lrcView.lrcName = playingMusic.lrcname;
+    self.lrcView.duration = self.currentPlayer.duration;
     
+    //添加或移除定时器
     [self removeProgressTimer];
     [self addProgressTimer];
     [self removeLrcTimer];
     [self addLrcTimer];
-    
 }
 
 //将时间戳转换为字符串
@@ -188,6 +230,8 @@
 - (void) updateProgressValue {
     self.currentTimeLabel.text = [self stringWithTime:self.currentPlayer.currentTime];
     self.progressSlider.value = self.currentPlayer.currentTime / self.currentPlayer.duration;
+    
+    
 }
 
 //更新歌词
@@ -287,8 +331,7 @@
     [self startPlayMusic];
 }
 
-#pragma mark - UIScrollViewDelegate 
-
+#pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     //获取滑动的偏移量
     CGPoint point = scrollView.contentOffset;
@@ -304,5 +347,27 @@
     return UIStatusBarStyleLightContent;
 }
 
+
+#pragma mark - 移除通知
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+#pragma mark - <AVAudioPlayerDelegate>
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    //设置播放按钮为暂停状态
+    self.playOrPauseButton.selected = NO;
+    //移除定时器
+    [self removeProgressTimer];
+    //停止旋转动画
+    [self.iconView.layer pauseAnimate];
+    //播放下一首歌
+    [self next];
+    //添加定时器
+    [self addProgressTimer];
+    //继续旋转动画
+    [self.iconView.layer resumeAnimate];
+}
 
 @end
