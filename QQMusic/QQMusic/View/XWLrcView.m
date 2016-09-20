@@ -76,7 +76,7 @@
         make.left.equalTo(self.left).offset(self.bounds.size.width * 2);
         make.width.equalTo(self.width);
     }];
-    //设置 tableView 的属性
+    //设置 lrcTableView 的属性
     self.lrcTableView.backgroundColor = [UIColor clearColor];
     self.lrcTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.lrcTableView.showsVerticalScrollIndicator = NO;
@@ -92,7 +92,7 @@
         make.left.equalTo(self.left);
         make.width.equalTo(self.width);
     }];
-    //设置 tableView 的属性
+    //设置 songTableView 的属性
     self.songTableView.backgroundColor = [UIColor clearColor];
     self.songTableView.showsVerticalScrollIndicator = NO;
     self.songTableView.rowHeight = 44;
@@ -126,9 +126,6 @@
         cell.textLabel.text = music.name;
         cell.textLabel.textColor = [UIColor whiteColor];
     }
-    
-   
-   
     return cell;
 }
 
@@ -147,8 +144,6 @@
     //解析歌词
     self.lrcList = [XWLrcTool lrcToolWithLrcName:lrcName];
     self.songsList = [XWMusicTool musics];
-//    NSLog(@"%@",self.songsList);
-  
 
     //设置第一句歌词
     XWLrcLine *firstLrcLine = self.lrcList[0];
@@ -274,21 +269,7 @@
     
     //获取锁屏中心
     MPNowPlayingInfoCenter *infoCenter = [MPNowPlayingInfoCenter defaultCenter];
-    
-    /*
-     // MPMediaItemPropertyAlbumTitle
-     // MPMediaItemPropertyAlbumTrackCount
-     // MPMediaItemPropertyAlbumTrackNumber
-     // MPMediaItemPropertyArtist
-     // MPMediaItemPropertyArtwork
-     // MPMediaItemPropertyComposer
-     // MPMediaItemPropertyDiscCount
-     // MPMediaItemPropertyDiscNumber
-     // MPMediaItemPropertyGenre
-     // MPMediaItemPropertyPersistentID
-     // MPMediaItemPropertyPlaybackDuration
-     // MPMediaItemPropertyTitle
-     */
+
     //设置锁屏参数
     NSMutableDictionary *playInfoDict = [NSMutableDictionary dictionary];
     
