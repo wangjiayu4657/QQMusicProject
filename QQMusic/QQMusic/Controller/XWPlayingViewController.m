@@ -17,6 +17,7 @@
 
 #define XMGColor(r,g,b,a)[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
+
 @interface XWPlayingViewController ()<UIScrollViewDelegate,AVAudioPlayerDelegate>
 /**背景图片*/
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
@@ -50,6 +51,9 @@
 /** 定时器 */
 @property (strong , nonatomic) CADisplayLink *lrcTime;
 
+/**滑动状态*/
+@property (assign , nonatomic)  BOOL flag;
+
 #pragma mark - slider 的处理
 - (IBAction)start;
 - (IBAction)end;
@@ -82,7 +86,8 @@
     [self startPlayMusic];
     
     // 设置歌词 view 的 contentSize
-    self.lrcView.contentSize = CGSizeMake(self.view.bounds.size.width * 2, 0);
+    self.lrcView.contentSize = CGSizeMake(self.view.bounds.size.width * 3, 0);
+    [self.lrcView setContentOffset:CGPointMake(self.view.bounds.size.width, 0) animated:YES];
     
     //从后台返回前台是通过通知让背景图片继续转动
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(iconViewAnimation) name:iconViewAnimationNotification object:nil];
@@ -333,13 +338,33 @@
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat screenWidth = self.view.bounds.size.width;
+    CGFloat scrollViewWidth = scrollView.bounds.size.width;
     //获取滑动的偏移量
     CGPoint point = scrollView.contentOffset;
-    //计算滑动偏移量所占的比例
-    CGFloat alpha = 1.0 - point.x / scrollView.bounds.size.width;
-    //设置 alpha
-    self.iconView.alpha = alpha;
-    self.lrcLabel.alpha = alpha;
+    NSLog(@"x : %f",point.x);
+    CGFloat alpha = 1.0;
+    if (point.x != self.view.bounds.size.width) {
+        //计算滑动偏移量所占的比例
+        if (point.x < 375) {
+            alpha = 1.0 - (screenWidth - point.x) / scrollViewWidth;
+        }else {
+            alpha = 1.0 - (point.x - screenWidth) / scrollViewWidth;
+        }
+        //设置 alpha
+        self.iconView.alpha = alpha;
+        self.lrcLabel.alpha = alpha;
+    }
+
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    
+}
+
+- (void) scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    self.flag = YES;
 }
 
 #pragma mark - 改变状态栏的文字颜色

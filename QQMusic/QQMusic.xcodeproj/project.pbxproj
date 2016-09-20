@@ -49,6 +49,7 @@
 		FA173F431D863DE900790EEF /* 309769.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA173F1A1D863DE900790EEF /* 309769.mp3 */; };
 		FA173F441D863DE900790EEF /* 339744.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA173F1B1D863DE900790EEF /* 339744.mp3 */; };
 		FA173F451D863DE900790EEF /* Musics.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA173F1C1D863DE900790EEF /* Musics.plist */; };
+		FA19076F1D90D49F0014F4CE /* XWTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA19076E1D90D49F0014F4CE /* XWTableView.m */; };
 		FA73E3EB1D80130700698BBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA73E3E91D80130700698BBA /* Main.storyboard */; };
 		FA73E3ED1D80130700698BBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA73E3EC1D80130700698BBA /* Assets.xcassets */; };
 		FA73E3F01D80130700698BBA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA73E3EE1D80130700698BBA /* LaunchScreen.storyboard */; };
@@ -131,6 +132,8 @@
 		FA173F1A1D863DE900790EEF /* 309769.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 309769.mp3; sourceTree = "<group>"; };
 		FA173F1B1D863DE900790EEF /* 339744.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 339744.mp3; sourceTree = "<group>"; };
 		FA173F1C1D863DE900790EEF /* Musics.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Musics.plist; sourceTree = "<group>"; };
+		FA19076D1D90D49F0014F4CE /* XWTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWTableView.h; sourceTree = "<group>"; };
+		FA19076E1D90D49F0014F4CE /* XWTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWTableView.m; sourceTree = "<group>"; };
 		FA73E3DD1D80130600698BBA /* QQMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QQMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA73E3EA1D80130700698BBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FA73E3EC1D80130700698BBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -406,6 +409,8 @@
 			children = (
 				FAB47E7A1D82651A003B7ED1 /* XWLrcView.h */,
 				FAB47E7B1D82651A003B7ED1 /* XWLrcView.m */,
+				FA19076D1D90D49F0014F4CE /* XWTableView.h */,
+				FA19076E1D90D49F0014F4CE /* XWTableView.m */,
 				FAB47E7D1D829272003B7ED1 /* XWLrcCell.h */,
 				FAB47E7E1D829272003B7ED1 /* XWLrcCell.m */,
 				FAB47E861D82D511003B7ED1 /* XWLrcLabel.h */,
@@ -493,7 +498,8 @@
 				TargetAttributes = {
 					FA73E3DC1D80130600698BBA = {
 						CreatedOnToolsVersion = 7.2.1;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = G9XFTV684E;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -653,6 +659,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAB47E6E1D810651003B7ED1 /* XWMusic.m in Sources */,
+				FA19076F1D90D49F0014F4CE /* XWTableView.m in Sources */,
 				FAB47E851D82A2DD003B7ED1 /* XWLrcLine.m in Sources */,
 				FAB47E741D810FA1003B7ED1 /* XMGAudioTool.m in Sources */,
 				FAB47E7F1D829272003B7ED1 /* XWLrcCell.m in Sources */,
@@ -808,13 +815,15 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = G9XFTV684E;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/QQMusic/PrefixHeader.pch";
 				INFOPLIST_FILE = QQMusic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yiju.fangjs.QQMusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0baa67cc-78f6-466f-bfba-3f1b1368e6d6";
+				PROVISIONING_PROFILE_SPECIFIER = Development;
 			};
 			name = Debug;
 		};

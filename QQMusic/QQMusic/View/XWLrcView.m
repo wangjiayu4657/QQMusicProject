@@ -16,8 +16,12 @@
 #import <MediaPlayer/MediaPlayer.h>
 
 @interface XWLrcView()<UITableViewDataSource>
+/**歌词列表*/
+@property (weak , nonatomic) UITableView *lrcTableView;
 
-@property (weak , nonatomic) UITableView *tableView;
+/**歌曲列表*/
+@property (weak , nonatomic) UITableView *songTableView;
+
 /**歌词数组*/
 @property (strong , nonatomic)  NSArray *lrcList;
 
@@ -45,30 +49,53 @@
 }
 //设置歌词列表
 - (void) setupTableView {
-    UITableView *tableView = [[UITableView alloc] init];
-    tableView.dataSource = self;
-    [self addSubview:tableView];
+    //歌词列表
+    UITableView *lrcTableView = [[UITableView alloc] init];
+    lrcTableView.dataSource = self;
+    [self addSubview:lrcTableView];
+    self.lrcTableView = lrcTableView;
     
-    self.tableView = tableView;
+    //歌曲列表
+    UITableView *songTableView = [[UITableView alloc] init];
+    songTableView.dataSource = self;
+    [self addSubview:songTableView];
+    self.songTableView = songTableView;
 }
 //添加约束
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    [self.tableView makeConstraints:^(MASConstraintMaker *make) {
+    [self.lrcTableView makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.top);
         make.bottom.equalTo(self.bottom);
         make.height.equalTo(self.height);
         make.right.equalTo(self.right);
-        make.left.equalTo(self.left).offset(self.bounds.size.width);
+        make.left.equalTo(self.left).offset(self.bounds.size.width * 2);
         make.width.equalTo(self.width);
     }];
     //设置 tableView 的属性
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.showsVerticalScrollIndicator = NO;
-    self.tableView.rowHeight = 30;
-    self.tableView.contentInset = UIEdgeInsetsMake(self.tableView.bounds.size.height * 0.5, 0, self.tableView.bounds.size.height * 0.5, 0);
+    self.lrcTableView.backgroundColor = [UIColor clearColor];
+    self.lrcTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.lrcTableView.showsVerticalScrollIndicator = NO;
+    self.lrcTableView.rowHeight = 30;
+    self.lrcTableView.contentInset = UIEdgeInsetsMake(self.lrcTableView.bounds.size.height * 0.5, 0, self.lrcTableView.bounds.size.height * 0.5, 0);
+    
+    
+    [self.songTableView makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.top);
+        make.bottom.equalTo(self.bottom);
+        make.height.equalTo(self.height);
+        make.right.equalTo(self.right);
+        make.left.equalTo(self.left);
+        make.width.equalTo(self.width);
+    }];
+    //设置 tableView 的属性
+    self.songTableView.backgroundColor = [UIColor clearColor];
+    self.songTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.songTableView.showsVerticalScrollIndicator = NO;
+    self.songTableView.rowHeight = 30;
+    self.songTableView.contentInset = UIEdgeInsetsMake(self.lrcTableView.bounds.size.height * 0.5, 0, self.lrcTableView.bounds.size.height * 0.5, 0);
+    
 }
 
 
@@ -97,7 +124,7 @@
 - (void)setLrcName:(NSString *)lrcName {
     
     //-1让 tableView 滚动到中间
-    [self.tableView setContentOffset:CGPointMake(0, -self.tableView.bounds.size.height * 0.5) animated:NO];
+    [self.lrcTableView setContentOffset:CGPointMake(0, -self.lrcTableView.bounds.size.height * 0.5) animated:NO];
     
     // 0.将currentIndex设置为0
     self.currentIndex = 0;
@@ -113,7 +140,7 @@
     self.lrcLabel.text = firstLrcLine.text;
     
     //刷新列表
-    [self.tableView reloadData];
+    [self.lrcTableView reloadData];
 }
 
 #pragma mark - 重写 currentTime set 方法
@@ -143,10 +170,10 @@
             self.currentIndex = i;
             
             //刷新当前和上一句歌词
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath,previousIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+            [self.lrcTableView reloadRowsAtIndexPaths:@[indexPath,previousIndexPath] withRowAnimation:UITableViewRowAnimationNone];
             
             //将当前这句歌词滚动到中间
-            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            [self.lrcTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
             
             //设置主界面上的歌词文字
             self.lrcLabel.text = currentLrcLine.text;
@@ -163,7 +190,7 @@
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.currentIndex inSection:0];
         
             //获取对应的 cell
-            XWLrcCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            XWLrcCell *cell = [self.lrcTableView cellForRowAtIndexPath:indexPath];
             cell.lrcLabel.progress = value;
             self.lrcLabel.progress = value;
         }
