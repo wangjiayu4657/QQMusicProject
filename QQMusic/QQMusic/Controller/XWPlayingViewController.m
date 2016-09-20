@@ -51,9 +51,7 @@
 /** 定时器 */
 @property (strong , nonatomic) CADisplayLink *lrcTime;
 
-/**滑动状态*/
-@property (assign , nonatomic)  BOOL flag;
-
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 #pragma mark - slider 的处理
 - (IBAction)start;
 - (IBAction)end;
@@ -106,20 +104,8 @@
 }
 
 
-
+//开启远程交互(启用远程事件接收,即使用耳机上的控制键开控制)
 - (void) remoteControlReceivedWithEvent:(UIEvent *)event {
-    /*
-     UIEventSubtypeRemoteControlPlay                 = 100,
-     UIEventSubtypeRemoteControlPause                = 101,
-     UIEventSubtypeRemoteControlStop                 = 102,
-     UIEventSubtypeRemoteControlTogglePlayPause      = 103,
-     UIEventSubtypeRemoteControlNextTrack            = 104,
-     UIEventSubtypeRemoteControlPreviousTrack        = 105,
-     UIEventSubtypeRemoteControlBeginSeekingBackward = 106,
-     UIEventSubtypeRemoteControlEndSeekingBackward   = 107,
-     UIEventSubtypeRemoteControlBeginSeekingForward  = 108,
-     UIEventSubtypeRemoteControlEndSeekingForward    = 109,
-     */
     switch (event.subtype) {
         case UIEventSubtypeRemoteControlPlay:
         case UIEventSubtypeRemoteControlPause:
@@ -235,8 +221,6 @@
 - (void) updateProgressValue {
     self.currentTimeLabel.text = [self stringWithTime:self.currentPlayer.currentTime];
     self.progressSlider.value = self.currentPlayer.currentTime / self.currentPlayer.duration;
-    
-    
 }
 
 //更新歌词
@@ -311,14 +295,14 @@
 - (IBAction)preVious {
     //获取上一首音乐
     XWMusic *previousMusic = [XWMusicTool playPreviousMusic];
-    
+    //播放上一首歌
     [self playMusicWithMusic:previousMusic];
 }
 
 - (IBAction)next {
     //获取下一首音乐
     XWMusic *nextMusic = [XWMusicTool playNextMusic];
-    
+    //播放下一首歌
     [self playMusicWithMusic:nextMusic];
 }
 
@@ -341,9 +325,13 @@
     
     CGFloat screenWidth = self.view.bounds.size.width;
     CGFloat scrollViewWidth = scrollView.bounds.size.width;
+    
     //获取滑动的偏移量
     CGPoint point = scrollView.contentOffset;
-    NSLog(@"x : %f",point.x);
+    
+    NSInteger pageIndex = point.x / screenWidth;
+    self.pageControl.currentPage = pageIndex;
+    
     CGFloat alpha = 1.0;
     if (point.x != self.view.bounds.size.width) {
         //计算滑动偏移量所占的比例
@@ -356,15 +344,6 @@
         self.iconView.alpha = alpha;
         self.lrcLabel.alpha = alpha;
     }
-
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    
-}
-
-- (void) scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    self.flag = YES;
 }
 
 #pragma mark - 改变状态栏的文字颜色
@@ -372,14 +351,13 @@
     return UIStatusBarStyleLightContent;
 }
 
-
 #pragma mark - 移除通知
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
 #pragma mark - <AVAudioPlayerDelegate>
+//当一首歌曲播放完之后会调用此方法,暂停或遇到错误时不会被调用
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
     //设置播放按钮为暂停状态
     self.playOrPauseButton.selected = NO;

@@ -25,6 +25,9 @@
 /**歌词数组*/
 @property (strong , nonatomic)  NSArray *lrcList;
 
+/**歌曲名数组*/
+@property (strong , nonatomic)  NSArray *songsList;
+
 /**记录当前刷新的某行*/
 @property (assign , nonatomic) NSInteger currentIndex;
 
@@ -91,31 +94,40 @@
     }];
     //设置 tableView 的属性
     self.songTableView.backgroundColor = [UIColor clearColor];
-    self.songTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.songTableView.showsVerticalScrollIndicator = NO;
-    self.songTableView.rowHeight = 30;
-    self.songTableView.contentInset = UIEdgeInsetsMake(self.lrcTableView.bounds.size.height * 0.5, 0, self.lrcTableView.bounds.size.height * 0.5, 0);
-    
+    self.songTableView.rowHeight = 44;
+    self.songTableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 15);
 }
 
 
 #pragma mark - UITableViewDdataSource
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.lrcList.count;
+    if (tableView == self.lrcTableView) {
+         return self.lrcList.count;
+    }else {
+        return self.songsList.count;
+    }
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     XWLrcCell *cell = [XWLrcCell initCellWithTableView:tableView];
-   
-    if ((self.currentIndex == indexPath.row)) {
-        cell.lrcLabel.font = [UIFont systemFontOfSize:17];
-    }else {
-        cell.lrcLabel.font = [UIFont systemFontOfSize:14];
-        cell.lrcLabel.progress = 0;
+    if (tableView == self.lrcTableView) {
+        if ((self.currentIndex == indexPath.row)) {
+            cell.lrcLabel.font = [UIFont systemFontOfSize:17];
+        }else {
+            cell.lrcLabel.font = [UIFont systemFontOfSize:14];
+            cell.lrcLabel.progress = 0;
+        }
+        
+        XWLrcLine *lrcLine = self.lrcList[indexPath.row];
+        cell.lrcLabel.text = lrcLine.text;
+    } else {
+        XWMusic *music = self.songsList[indexPath.row];
+        cell.textLabel.text = music.name;
+        cell.textLabel.textColor = [UIColor whiteColor];
     }
     
-    XWLrcLine *lrcLine = self.lrcList[indexPath.row];
-    cell.lrcLabel.text = lrcLine.text;
+   
    
     return cell;
 }
@@ -134,6 +146,9 @@
     
     //解析歌词
     self.lrcList = [XWLrcTool lrcToolWithLrcName:lrcName];
+    self.songsList = [XWMusicTool musics];
+//    NSLog(@"%@",self.songsList);
+  
 
     //设置第一句歌词
     XWLrcLine *firstLrcLine = self.lrcList[0];

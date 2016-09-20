@@ -163,6 +163,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="SEf-yV-wgv"/>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sev-Vx-Uf8" customClass="XWLrcView">
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
@@ -182,6 +183,7 @@
                             <constraint firstItem="3zw-mC-2Cg" firstAttribute="top" secondItem="bNU-Xl-Cnh" secondAttribute="bottom" constant="30" id="KVF-t5-VlB"/>
                             <constraint firstItem="dbo-et-oxE" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="NLd-ZC-LQZ"/>
                             <constraint firstAttribute="trailing" secondItem="bNM-2S-9Yy" secondAttribute="trailing" id="PFV-8Y-rBo"/>
+                            <constraint firstItem="SEf-yV-wgv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UvQ-ze-BMa"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="bNM-2S-9Yy" secondAttribute="bottom" id="Vdx-v6-NG5"/>
                             <constraint firstAttribute="trailing" secondItem="Sev-Vx-Uf8" secondAttribute="trailing" id="c7s-FR-0am"/>
                             <constraint firstAttribute="trailing" secondItem="aHO-am-haQ" secondAttribute="trailing" id="cID-Im-xB3"/>
@@ -189,10 +191,11 @@
                             <constraint firstItem="3zw-mC-2Cg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fi6-9T-k9a"/>
                             <constraint firstItem="aHO-am-haQ" firstAttribute="top" secondItem="3zw-mC-2Cg" secondAttribute="bottom" constant="27" id="iAR-zF-yKQ"/>
                             <constraint firstItem="bNM-2S-9Yy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="kvs-q5-BTh"/>
-                            <constraint firstItem="Sev-Vx-Uf8" firstAttribute="top" secondItem="dbo-et-oxE" secondAttribute="bottom" id="r2G-I4-ntj"/>
+                            <constraint firstItem="SEf-yV-wgv" firstAttribute="top" secondItem="bNU-Xl-Cnh" secondAttribute="bottom" constant="65" id="nbw-As-F0d"/>
+                            <constraint firstItem="Sev-Vx-Uf8" firstAttribute="top" secondItem="dbo-et-oxE" secondAttribute="bottom" constant="10" id="r2G-I4-ntj"/>
                             <constraint firstItem="aHO-am-haQ" firstAttribute="top" secondItem="3zw-mC-2Cg" secondAttribute="bottom" constant="27" id="uua-DV-1MR"/>
                             <constraint firstAttribute="trailing" secondItem="dbo-et-oxE" secondAttribute="trailing" id="vaE-3Q-nsL"/>
-                            <constraint firstItem="aHO-am-haQ" firstAttribute="top" secondItem="Sev-Vx-Uf8" secondAttribute="bottom" id="y4R-av-5dB"/>
+                            <constraint firstItem="aHO-am-haQ" firstAttribute="top" secondItem="Sev-Vx-Uf8" secondAttribute="bottom" constant="10" id="y4R-av-5dB"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -208,6 +211,7 @@
                         <outlet property="lrcLabel" destination="3zw-mC-2Cg" id="dei-Sj-zg5"/>
                         <outlet property="lrcView" destination="Sev-Vx-Uf8" id="ZaJ-UX-83I"/>
                         <outlet property="nextButton" destination="v76-Tx-78u" id="sBp-AA-Ti8"/>
+                        <outlet property="pageControl" destination="SEf-yV-wgv" id="5IC-g7-g0e"/>
                         <outlet property="playOrPauseButton" destination="Mme-h2-9EO" id="549-gX-pSW"/>
                         <outlet property="previousButton" destination="Uj0-1M-xvM" id="sys-cd-pg3"/>
                         <outlet property="progressSlider" destination="cke-pL-WEc" id="iY1-mW-suJ"/>
